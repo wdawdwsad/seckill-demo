@@ -1,42 +1,88 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>商品列表</title>
-    <!-- jquery -->
-    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
-    <!-- bootstrap -->
-    <link rel="stylesheet" type="text/css"
-          th:href="@{/bootstrap/css/bootstrap.min.css}"/>
-    <script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min.js}">
-    </script>
-    <!-- layer -->
-    <script type="text/javascript" th:src="@{/layer/layer.js}"></script>
-    <!-- common.js -->
-    <script type="text/javascript" th:src="@{/js/common.js}"></script>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/bootstrap.min.css}" />
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #007bff, #ffffff);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .panel {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 800px;
+            padding: 20px;
+        }
+        .panel-heading {
+            background-color: #007bff;
+            color: #fff;
+            padding: 15px;
+            font-size: 24px;
+            border-radius: 10px 10px 0 0;
+        }
+        .table {
+            background-color: #fff;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .table th,
+        .table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .table img {
+            max-width: 80px;
+            height: auto;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .table a {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .table a:hover {
+            color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-<div class="panel panel-default">
+<div class="panel">
     <div class="panel-heading">秒杀商品列表</div>
-    <table class="table" id="goodslist">
+    <table class="table">
+        <thead>
         <tr>
-            <td>商品名称</td>
-            <td>商品图片</td>
-            <td>商品原价</td>
-            <td>秒杀价</td>
-            <td>库存数量</td>
-            <td>详情</td>
+            <th>商品名称</th>
+            <th>商品图片</th>
+            <th>商品原价</th>
+            <th>秒杀价</th>
+            <th>库存数量</th>
+            <th>详情</th>
         </tr>
+        </thead>
+        <tbody>
         <tr th:each="goods,goodsStat : ${goodsList}">
             <td th:text="${goods.goodsName}"></td>
-            <td><img th:src="@{${goods.goodsImg}}" width="100" height="100"/>
-            </td>
+            <td><img th:src="@{${goods.goodsImg}}" alt="商品图片" /></td>
             <td th:text="${goods.goodsPrice}"></td>
             <td th:text="${goods.seckillPrice}"></td>
             <td th:text="${goods.stockCount}"></td>
             <td><a th:href="'/goodsDetail.htm?goodsId='+${goods.id}">详情</a></td>
         </tr>
+        </tbody>
     </table>
 </div>
 </body>

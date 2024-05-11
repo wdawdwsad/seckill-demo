@@ -1,73 +1,151 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>登录</title>
-    <!-- jquery -->
-    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
-    <!-- bootstrap -->
-    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/bootstrap.min.css}"/>
-    <script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
-    <!-- jquery-validator -->
-    <script type="text/javascript" th:src="@{/jquery-validation/jquery.validate.min.js}"></script>
-    <script type="text/javascript" th:src="@{/jquery-validation/localization/messages_zh.min.js}"></script>
-    <!-- layer -->
-    <script type="text/javascript" th:src="@{/layer/layer.js}"></script>
-    <!-- md5.js -->
-    <script type="text/javascript" th:src="@{/js/md5.min.js}"></script>
-    <!-- common.js -->
-    <script type="text/javascript" th:src="@{/js/common.js}"></script>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Include Bootstrap JS -->
+    <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Include jQuery Validator -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/localization/messages_zh.min.js"></script>
+    <!-- Include Layer -->
+    <script type="text/javascript" src="/layer/layer.js"></script>
+    <!-- Include MD5.js -->
+    <script type="text/javascript" src="/js/md5.min.js"></script>
+    <!-- Include Common.js -->
+    <script type="text/javascript" src="/js/common.js"></script>
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #000;
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+            background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        #loginForm {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 8px;
+            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.2);
+            animation: shadowAnimation 3s ease infinite alternate;
+        }
+
+        @keyframes shadowAnimation {
+            0% {
+                box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.2);
+            }
+            100% {
+                box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.4);
+            }
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 30px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #fff;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background: rgba(255, 255, 255, 0.4);
+            color: #000;
+            box-shadow: inset 0px 0px 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-block {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background: #fd1d1d;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .btn-block:hover {
+            background: #ff7800;
+        }
+    </style>
 </head>
 <body>
-<form name="loginForm" id="loginForm" method="post" style="width:50%; margin:0 auto">
-
-    <h2 style="text-align:center; margin-bottom: 20px">用户登录</h2>
-
+<form id="loginForm" method="post">
+    <h2>用户登录</h2>
     <div class="form-group">
-        <div class="row">
-            <label class="form-label col-md-4">请输入手机号码</label>
-            <div class="col-md-5">
-                <input id="mobile" name="mobile" class="form-control" type="text" placeholder="手机号码" required="true"
-                       minlength="11" maxlength="11"/>
-            </div>
-            <div class="col-md-1">
-            </div>
-        </div>
+        <label for="mobile">请输入手机号码</label>
+        <input id="mobile" name="mobile" class="form-control" type="text" placeholder="手机号码" required minlength="11" maxlength="11"/>
     </div>
-
     <div class="form-group">
-        <div class="row">
-            <label class="form-label col-md-4">请输入密码</label>
-            <div class="col-md-5">
-                <input id="password" name="password" class="form-control" type="password" placeholder="密码"
-                       required="true" minlength="6" maxlength="16"/>
-            </div>
-        </div>
+        <label for="password">请输入密码</label>
+        <input id="password" name="password" class="form-control" type="password" placeholder="密码" required minlength="6" maxlength="16"/>
     </div>
-
     <div class="row">
-        <div class="col-md-5">
-            <button class="btn btn-primary btn-block" type="reset" onclick="reset()">重置</button>
+        <div class="col-md-6">
+            <button class="btn btn-secondary btn-block" type="reset">重置</button>
         </div>
-        <div class="col-md-5">
-            <button class="btn btn-primary btn-block" type="submit" onclick="login()">登录</button>
+        <div class="col-md-6">
+            <button class="btn btn-primary btn-block" type="submit">登录</button>
         </div>
     </div>
 </form>
-</body>
 <script>
-    function login() {
-        $("#loginForm").validate({
+    $(document).ready(function () {
+        $('#loginForm').validate({
+            rules: {
+                mobile: {
+                    required: true,
+                    minlength: 11,
+                    maxlength: 11
+                },
+                password: {
+                    required: true,
+                    minlength: 6,
+                    maxlength: 16
+                }
+            },
+            messages: {
+                mobile: {
+                    required: "请输入手机号码",
+                    minlength: "手机号码长度必须为11位",
+                    maxlength: "手机号码长度必须为11位"
+                },
+                password: {
+                    required: "请输入密码",
+                    minlength: "密码长度至少为6位",
+                    maxlength: "密码长度最多为16位"
+                }
+            },
             submitHandler: function (form) {
                 doLogin();
             }
         });
-    }
+    });
 
     function doLogin() {
-        g_showLoading();
-
         var inputPass = $("#password").val();
         var salt = g_passsword_salt;
         var str = "" + salt.charAt(0) + salt.charAt(2) + inputPass + salt.charAt(5) + salt.charAt(4);
@@ -81,10 +159,9 @@
                 password: password
             },
             success: function (data) {
-                layer.closeAll();
                 if (data.code == 200) {
                     layer.msg("成功");
-                    window.location.href="/goods/toList";
+                    window.location.href = "/goods/toList";
                 } else {
                     layer.msg(data.message);
                 }
@@ -95,4 +172,5 @@
         });
     }
 </script>
+</body>
 </html>
